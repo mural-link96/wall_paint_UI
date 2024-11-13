@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Painting Visualizer</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container mx-auto p-4">
+        <h1 id="room-painting-visualizer" class="text-2xl font-bold mb-4">Room Painting Visualizer</h1>
+
+        <div class="mb-4">
+            <input type="file" id="imageUpload" accept="image/*" class="hidden">
+            <label for="imageUpload" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer">
+                Upload Image
+            </label>
+        </div>
+
+        <div class="flex gap-4">
+            <div class="w-2/3 bg-white rounded-lg shadow-md p-4">
+                <h2 id="your-room" class="text-xl font-semibold mb-2">Your Room</h2>
+                <img id="roomImage" src="{{ url_for('static', filename='placeholder.png') }}" alt="Your Room" class="w-full h-auto mb-4">
+                <button id="processImage" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                    Let's Paint It!
+                </button>
+                <div id="progressBarContainer" class="mt-4 hidden">
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                        <div class="progress-bar bg-blue-600 h-2.5 rounded-full"></div>
+                    </div>
+                    <p>Processing image...</p>
+                </div>
+            </div>
+
+            <div class="w-1/3">
+                <div id="segmentsContainer" class="bg-white rounded-lg shadow-md p-4 mb-4">
+                    <h2 id="wall-segments" class="text-xl font-semibold mb-2">Wall Segments</h2>
+                    <ul id="segmentList"></ul>
+                </div>
+
+                <div id="colorPickerContainer" class="bg-white rounded-lg shadow-md p-4">
+                    <h2 id="paint-selected-wall" class="text-xl font-semibold mb-2">Paint Selected Wall</h2>
+                    <div id="colorPalette" class="grid grid-cols-5 gap-2 mb-4"></div>
+                    <div class="flex flex-col gap-2 mb-4">
+                        <div class="flex items-center gap-2">
+                            <input type="color" id="colorPicker" class="w-8 h-8">
+                            <input type="text" id="hexInput" class="border rounded px-2 py-1" placeholder="#FFFFFF">
+                        </div>
+                        <div class="flex flex-col gap-1 mb-4">
+                            <div class="slider-container">
+                                <label for="redSlider" class="slider-label">R</label>
+                                <input type="range" id="redSlider" min="0" max="255" value="255" class="slider">
+                            </div>
+                            <div class="slider-container">
+                                <label for="greenSlider" class="slider-label">G</label>
+                                <input type="range" id="greenSlider" min="0" max="255" value="255" class="slider">
+                            </div>
+                            <div class="slider-container">
+                                <label for="blueSlider" class="slider-label">B</label>
+                                <input type="range" id="blueSlider" min="0" max="255" value="255" class="slider">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between mb-4">
+                        <button id="applyToSegment" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            Apply to Segment
+                        </button>
+                        <button id="clearSegment" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                            Clear Segment
+                        </button>
+                    </div>
+                    <button id="applyAllColors" class="w-full bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5zm0 2h10v7h-2V7H7v5H5V5z" clip-rule="evenodd"></path>
+                        </svg>
+                        Apply All Colors
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script-->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
